@@ -1,0 +1,66 @@
+.trandUniformMainSec{
+    margin:40px 0 ;
+}
+
+.UniformCard{
+    border:1px solid gray;
+    height:380px;
+    padding:5px;
+}
+.tradingHeading{
+  font-weight: 700;
+}
+.ProductImg{
+    height: 300px;
+    margin: 5px;
+    width:180px;
+}
+
+.detailSec h3{
+   
+    text-align: center;
+    font-size: 16px;
+   
+}
+
+.truncate {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;   /* 👈 Limit to 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+.detailSec p{
+    text-align: center;
+    font-size: 12px;
+    
+
+}
+.icons{
+    display: flex;
+    gap:12px;
+    text-align: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px){
+    .trandUniformMainSec {
+        margin: 10px 0;
+    }
+    .ProductImg {
+        height: 200px;
+        margin: 5px;
+        width: 180px;
+    }
+
+    .UniformCard {
+        width: 100%;
+        border: 1px solid gray;
+        height: 280px;
+        padding: 5px;
+    }
+    .topTrandingCol{
+        display: flex;
+        justify-content: center;
+    }
+}

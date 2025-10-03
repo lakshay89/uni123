@@ -1,0 +1,251 @@
+.midsec {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 20px;
+}
+.HeadingText{
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.viewbutton {
+    position: relative;
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 12px;
+    font-weight: 400px;
+    color: #ff7010;
+    /* Text always visible */
+    background: transparent;
+    /* No background initially */
+    border: 2px solid #616365 !important;
+
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.viewbutton::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: #ff7010;
+    /* Background appears on hover */
+    transition: width 1s ease-in-out;
+    z-index: -1;
+   
+}
+
+.buttonsec {
+    text-align: center;
+    padding: 20px;
+}
+
+.sec1img {
+    height: 79%;
+    width: 77%;
+    margin-left: 23%;
+}
+
+.sec2 img {
+    height: 55%;
+}
+
+.modalPic{
+    height: 390px !important;;
+}
+
+.viewbutton:hover::before {
+    width: 100%;
+    /* Expands from left to right */
+}
+
+.viewbutton:hover {
+    color: white;
+    border:none !important;
+    /* Text turns white when background appears */
+}
+
+
+/* ------- Hover image section ------------ */
+
+.Bestproduct-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.Bestproduct-card {
+    position: relative;
+    overflow: hidden;
+    width: 250px;
+    height: 420px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.Bestproduct-card:hover {
+    transform: translateY(-5px);
+}
+
+.Bestproduct-image {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+}
+
+.Bestproduct-info {
+    padding: 0px;
+}
+.Bestproduct-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    margin: 8px 0;
+}
+
+.Bestproduct-rating {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.star {
+    font-size: 16px;
+    color: #ccc;
+}
+
+.filled {
+    color: gold;
+}
+
+.rating-number {
+    font-size: 14px;
+    margin-left: 5px;
+    color: #777;
+}
+
+.Bestproduct-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+
+
+
+.enquiry-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  
+  .enquiry-modal-content {
+    background-color: #fff;
+    padding: 25px;
+    width: 400px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .enquiry-modal input,
+  .enquiry-modal textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+  }
+  
+.enquiryBtn{
+  border: 1px solid brown;
+  background: brown;
+  color:white;
+  padding:10px;
+
+}
+
+.addToCartBtn{
+    border: 1px solid brown;
+    background: brown;
+    color:white;
+    padding:10px;
+}
+
+.buttonPortion{
+    margin-bottom: 5px;
+}
+
+  .submitEnquiryBtn {
+    width: 100%;
+    padding: 8px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .buttonPortion{
+    display: flex;
+        justify-content: space-around;
+  }
+  
+
+@media (max-width: 768px){
+    .Bestproduct-card {
+        width: 225px;
+        height:360px;
+    }
+
+    .Bestproduct-image{
+        height:200px;
+    }
+
+    .sec1img {
+        height: 79%;
+        width: 55%;
+    }
+
+    .modalPic {
+        height: 300px !important;
+        padding:20px;
+    }
+
+.buttonPortion{
+    text-align: center !important;
+}
+
+.buttonsec p{
+    text-align: center;
+}
+.starsSec{
+    text-align: center;
+}
+.sec2 p{
+    text-align: center;
+}
+}

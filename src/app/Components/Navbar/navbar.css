@@ -1,0 +1,420 @@
+/* ---------- Top Navbar ---------- */
+.TopNavbarContainer .TopNavbar{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    padding:10px 20px;
+}
+.navtext{
+    margin-bottom: 0px;
+}
+.TopNavLeftSec{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    font-size:12px;
+}
+.TopNavRightSec{
+    display: flex;
+    flex-wrap: wrap;
+    gap:10px;
+    align-items: center;
+}
+.PagesSection{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap:10px;
+    margin-top:10px;
+}
+.PayOnlineBtn{
+    padding:10px 15px;
+    margin-right:10px;
+    font-size:12px;
+    border:none;
+    background-color: lightcoral;
+    color:#fff;
+    border-radius:4px;
+    cursor: pointer;
+}
+
+/* ---------- Bottom Navbar ---------- */
+.BottomNavbar{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    padding:10px 30px;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    background-color: #fff;
+    position: relative;
+}
+
+.navbar-logo{
+    height:50px;
+    object-fit: contain;
+}
+
+/* Middle Dropdown */
+.BottomNavMid .dropdown-section{
+    display: flex;
+    align-items: center;
+    margin:0;
+    flex-wrap: wrap;
+}
+.BottomNavMid .dropdown{
+    font-size:14px;
+    font-weight:500;
+    cursor: pointer;
+    position: relative;
+    margin-right: 15px;
+    padding: 10px 0;
+}
+.BottomNavMid .dropdown:hover{
+    color: lightcoral;
+}
+
+.dropdown-link{
+    text-decoration: none;
+    color: brown;
+    display: block;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.AnchorLink{
+    font-size: 14px;
+    text-decoration: none;
+    color:brown;
+    text-align: center;
+}
+
+/* Right Icons */
+.BottomNavRight .nav-icon{
+    font-size:22px;
+    cursor:pointer;
+    transition: color 0.3s ease;
+}
+.BottomNavRight .nav-icon:hover{
+    color: lightcoral;
+}
+
+/* ---------- Dropdown Menu (Desktop) ---------- */
+.BottomNavMid .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 80%;
+    left: 0;
+    background-color: #fff;
+    width: 100vw;
+    min-height: 170px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    z-index: 1000;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    margin-left: -30px;
+}
+
+/* Grid layout for dropdown items - 5 items per row */
+.dropdown-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+
+.BottomNavMid .dropdown-menu li {
+    padding: 0;
+    cursor: pointer;
+    font-size: 14px;
+    border-bottom: none;
+    text-align: center;
+    box-sizing: border-box;
+    list-style: none;
+}
+
+.BottomNavMid .dropdown-menu li:hover {
+    background-color: transparent;
+}
+
+.BottomNavMid .dropdown-menu li:hover .dropdown-link {
+    background-color: lightcoral;
+    color: #fff;
+    border-radius: 4px;
+    transform: translateY(-2px);
+}
+
+.BottomNavMid .dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Close button for mobile dropdown */
+.dropdown-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+    z-index: 1001;
+    padding: 5px;
+}
+
+.dropdown-close:hover {
+    background-color: #f0f0f0;
+    border-radius: 50%;
+}
+
+/* ---------- Mobile Styles ---------- */
+.mobileMenuIcon{
+    display:none;
+    cursor:pointer;
+}
+
+/* ---------- Mobile Dropdown (Sidebar Style) ---------- */
+@media (max-width: 991px) {
+    .TopNavRightSec{
+        display: none;
+     }
+    .TopNavbar{
+        display: none;
+     }
+     
+    .mobileMenuIcon{
+        display:block;
+        z-index: 1003;
+        position: relative;
+    }
+    
+    .BottomNavMid{
+        display:none;
+        width:100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        background: white;
+        z-index: 1002;
+        padding: 80px 20px 20px;
+        overflow-y: auto;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .BottomNavMid.show-mobile-menu{
+        display:block;
+        transform: translateX(0);
+    }
+    
+    .BottomNavMid .dropdown-section{
+        flex-direction: column;
+        gap: 0;
+        width: 100%;
+    }
+    
+    .BottomNavMid .dropdown{
+        margin:0;
+        width: 100%;
+        padding: 15px;
+        border-bottom: 1px solid #eee;
+        font-size: 16px;
+        position: relative;
+    }
+    
+    .dropdown-title {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .BottomNavRight{
+        margin-top:10px;
+        display:flex;
+        gap:15px;
+    }
+
+    /* Mobile dropdown sidebar */
+    .BottomNavMid .dropdown-menu {
+        position: fixed;
+        top: 0;
+        left: 100%;
+        width: 85vw;
+        height: 100vh;
+        max-width: 320px;
+        padding: 60px 20px 20px 20px;
+        border-radius: 0;
+        box-shadow: -2px 0 10px rgba(0,0,0,0.2);
+        transition: left 0.3s ease;
+        margin-left: 0;
+        z-index: 1004;
+        display: none;
+        background: white;
+    }
+
+    .BottomNavMid .dropdown.active .dropdown-menu {
+        left: 15vw;
+        display: block;
+    }
+
+    /* Single column for mobile */
+    .dropdown-menu-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .BottomNavMid .dropdown-menu li {
+        width: 100%;
+    }
+
+    /* Hide desktop hover behavior on mobile */
+    .BottomNavMid .dropdown:hover .dropdown-menu {
+        display: none;
+    }
+
+    .dropdown-link {
+        text-align: left;
+        padding: 12px 15px;
+        border-bottom: 1px solid #f0f0f0;
+        border-radius: 4px;
+        display: block;
+        width: 100%;
+    }
+
+    .dropdown-link:hover {
+        background-color: lightcoral;
+        color: #fff;
+    }
+    
+    /* Close button for main mobile menu */
+    .mobile-menu-close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: none;
+        border: none;
+        font-size: 28px;
+        cursor: pointer;
+        color: #333;
+        z-index: 1003;
+    }
+}
+
+/* ---------- Mobile Bottom Navbar ---------- */
+.MobileBottomNav {
+    display: none;
+}
+
+@media (max-width:768px){
+    .TopNavbarContainer{
+         display: none;
+    }
+
+    .BottomNavbar {
+        display: flex;
+    }
+
+    .MobileBottomNav {
+        display: none;
+    }
+}
+
+/* Adjust for smaller desktop screens */
+@media (max-width: 1400px) {
+    .dropdown-menu-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (max-width: 1200px) {
+    .dropdown-menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 992px) {
+    .dropdown-menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 575px){
+    .TopNavbar{
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .TopNavLeftSec, .TopNavRightSec{
+        flex-direction: column;
+        align-items: flex-start;
+        gap:5px;
+    }
+    .PagesSection{
+        flex-direction: column;
+        gap:5px;
+    }
+    
+    .MobileBottomNav{
+        display: flex !important;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
+        padding: 10px 0;
+        z-index: 999;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    }
+    
+    .MobileBottomNav .d-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+    }
+    
+    .mobile-nav-icon {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 12px;
+        color: #444;
+        text-decoration: none;
+    }
+    
+    .mobile-nav-icon span {
+        margin-top: 2px;
+    }
+    
+    .mobile-nav-icon:hover {
+        color: lightcoral;
+    }
+    
+    .BottomNavbar .BottomNavRight {
+        display: none;
+    }
+
+    .dropdown-menu-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Ensure proper dropdown positioning */
+.BottomNavMid .dropdown {
+    position: static !important;
+}
+
+.BottomNavMid .dropdown-menu {
+    left: 0 !important;
+    right: 0 !important;
+    width: 100vw !important;
+    margin-left: 0 !important;
+}   

@@ -1,0 +1,46 @@
+.contact-section {
+    background-color: #fdf7f4;
+    color: #472b1f;
+  }
+
+  .mainContainer{
+    background-color: #fdf7f4;
+  }
+  
+  .contact-title {
+    font-family: 'Georgia', serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #672d1f;
+  }
+  
+  .contact-form input,
+  .contact-form textarea {
+    border: 1px solid #333;
+    border-radius: 0;
+    background-color: #fff;
+    color: #000;
+  }
+  
+  .btn-send {
+    background-color: #a84d2e;
+    color: #fff;
+    border: none;
+    padding: 8px 24px;
+    font-weight: 500;
+  }
+  
+  .btn-send:hover {
+    background-color: #8c3e25;
+  }
+  
+  .social-icons svg {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #472b1f;
+  }
+  
+  .contact-footer {
+    font-size: 0.9rem;
+  }
+  

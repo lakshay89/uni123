@@ -1,0 +1,59 @@
+.brand-carousel-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    overflow: hidden;
+    background: #fff;
+    padding: 20px 0;
+  }
+  
+  /* Each row */
+  .carousel-row {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+  }
+  
+  .carousel-track {
+    display: inline-flex;
+    gap: 40px;
+  }
+  
+  .carousel-track img {
+    height: 100px;
+    width: auto;
+    object-fit: contain;
+    flex-shrink: 0;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+  }
+  .carousel-track img:hover {
+    filter: grayscale(0%);
+  }
+  
+  /* Animation base */
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes scroll-right {
+    0% {
+      transform: translateX(-50%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  /* Direction control */
+  .carousel-row.left .carousel-track {
+    animation: scroll-left 20s linear infinite;
+  }
+  .carousel-row.right .carousel-track {
+    animation: scroll-right 20s linear infinite;
+  }
+  

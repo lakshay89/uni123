@@ -1,0 +1,105 @@
+.filter-sidebar {
+    background: #fff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    height: fit-content;
+    transition: all 0.3s ease;
+    position: sticky;
+    top: 20px;
+  }
+  
+  .sidebar-title {
+    font-size: 18px;
+    font-weight: 600;
+    background: linear-gradient(90deg, #ff6f61, #ff4081);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .filter-search .input-group {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .filter-search input {
+    border: none !important;
+    box-shadow: none !important;
+  }
+  
+  .filter-category label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: #555;
+  }
+  
+  .filter-category select {
+    border-radius: 10px;
+    padding: 8px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+  }
+  
+  .filter-category select:hover {
+    border-color: #ff4081;
+  }
+  
+  .filter-section {
+    border-bottom: 1px solid #f1f1f1;
+    padding-bottom: 6px;
+  }
+  
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    color: #444;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+  }
+  
+  .filter-header:hover {
+    color: #ff4081;
+  }
+  
+  .filter-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, margin 0.35s ease;
+  }
+  
+  .filter-body.open {
+    max-height: 200px;
+    margin-top: 8px;
+  }
+  
+  .filter-body input {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 6px 10px;
+    transition: border 0.3s;
+  }
+  
+  .filter-body input:focus {
+    border-color: #ff4081;
+    outline: none;
+  }
+  
+  .form-check-input {
+    cursor: pointer;
+  }
+  
+  .form-check-label {
+    margin-left: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  .filter-body{
+    display: flex;
+    flex-direction: row;
+  }
+

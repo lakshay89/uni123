@@ -1,0 +1,109 @@
+.counter-main {
+  /* background: url("../../../Assets/Images/Background.jpg") no-repeat center center/cover; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 60px 0;
+  color: #fff;
+}
+
+.counter-heading {
+  color:rgb(0, 0, 0);
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+
+
+.counter-subtext {
+  color:rgb(0, 0, 0);
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 500px;
+}
+
+/* Counter Boxes */
+.counter-box {
+  border-radius: 15px;
+  padding: 20px 20px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.counter-box:hover {
+  transform: translateY(-8px);
+}
+
+.counter-box .icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.counter-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.counter-label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #000000;
+}
+
+/* Background colors like your image */
+.box-purple {
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+  backdrop-filter: blur(10px); /* blur the background behind the element */
+  -webkit-backdrop-filter: blur(10px); /* for Safari */
+  border: 1px dashed rgba(0, 0, 0, 0.3); /* optional: light border */
+  border-radius: 10px; /* rounded corners */
+  padding: 20px; /* content padding */
+  color: #fff; /* text color */
+}
+
+.box-teal {
+  background: #c6f7f0;
+}
+
+.box-pink {
+  background: #ffe1ec;
+}
+
+.box-yellow {
+  background: rgba(255, 255, 255, 0.2); /* semi-transparent white */
+  backdrop-filter: blur(10px); /* blur the background behind the element */
+  -webkit-backdrop-filter: blur(10px); /* for Safari */
+  border: 1px dashed rgba(0, 0, 0, 0.3); /* optional: light border */
+  border-radius: 10px; /* rounded corners */
+  padding: 20px; /* content padding */
+  color: #fff; /* text color */
+}
+
+
+
+@media (max-width:768px){
+  .counter-heading{
+    text-align: center;
+    font-size: 30px;
+}
+
+.counter-subtext{
+  text-align: justify;
+}
+
+.box-purple {
+  padding: 5px;
+}
+.counter-box {
+  padding: 5px;
+}
+
+.counter-main {
+  padding:30px 0 ;
+}
+
+}

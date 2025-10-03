@@ -1,0 +1,72 @@
+.footer-section {
+    /* background-color: #1f2a44; */
+    background: #aa3b38;
+    color: #fff;
+    font-size: 14px;
+  }
+  .brandIcon{
+       border:1px dashed white;
+  }
+  .footer-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+  
+  .footer-section a {
+    color: #ccc;
+    text-decoration: none;
+  }
+  
+  .footer-section a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+  .social-icons a {
+    font-size: 18px;
+    display: inline-block;
+    color: #fff;
+    transition: 0.3s;
+  }
+  
+  .social-icons a:hover {
+    color: #ff6b6b;
+  }
+  
+  .footer-payments svg {
+    font-size: 30px;
+    margin-right: 10px;
+    color: #fff;
+  }
+  
+  .footer-locations a {
+    color: #ccc;
+    margin-right: 15px;
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+  
+  .footer-bottom a {
+    color: #ccc;
+    margin-left: 15px;
+  }
+  
+  @media (max-width: 768px) {
+    .footer-bottom {
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+  
+    .footer-locations a {
+      margin-right: 10px;
+    }
+
+
+    .footer-section{
+     text-align: center;
+    }
+
+
+  }
+  
