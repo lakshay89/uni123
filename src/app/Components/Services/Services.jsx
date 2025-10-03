@@ -1,21 +1,19 @@
-
 'use client';
 import { useEffect, useState, useMemo } from 'react';
 
 const LANDSCAPE = [
-  { label: '12×9',  w: 12, h: 9 },
-  { label: '16×12', w: 16, h: 12 },
-  { label: '18×12', w: 18, h: 12 },
-  { label: '21×15', w: 21, h: 15 },
-  { label: '30×20', w: 30, h: 20 },
-  { label: '35×23', w: 35, h: 23 },
-  { label: '48×36', w: 48, h: 36 },
+  { label: '12×9',  w: 10, h: 7 },
+  { label: '16×12', w: 13, h: 9 },
+  { label: '18×12', w: 15, h: 11 },
+  { label: '21×15', w: 19, h: 13 },
+  { label: '30×20', w: 26, h: 16 },
+  { label: '35×23', w: 28, h: 17 },
+  { label: '48×36', w: 32, h: 19 },
 ];
 const PORTRAIT = LANDSCAPE.map(s => ({ label: `${s.h}×${s.w}`, w: s.h, h: s.w }));
 
 // replace with your measured numbers:
-const FRAME_RECT_PCT = { left: 27, top: 15, width: 18, height: 24 };
-
+const FRAME_RECT_PCT = { left: 33, top: 18, width: 22, height: 33 };
 
 function sizeScale(selected, base) {
   return Math.sqrt((selected.w * selected.h) / (base.w * base.h));
@@ -25,8 +23,7 @@ export default function ServicesSection() {
   const [photo, setPhoto] = useState(null);
   const [orientation, setOrientation] = useState('landscape');
   const [selected, setSelected] = useState(LANDSCAPE[0]);
-  const [border, setBorder] = useState('none');
-  const [frame, setFrame] = useState('classic');
+  const [thickness, setThickness] = useState('8mm');
 
   const sizes = orientation === 'landscape' ? LANDSCAPE : PORTRAIT;
   const base = sizes[0];
@@ -63,9 +60,8 @@ export default function ServicesSection() {
       : 70;
     return p(selected);
   }, [selected]);
-  const priceBorder = border === 'thin' ? 10 : border === 'thick' ? 20 : 0;
-  const priceFrame = frame === 'classic' ? 0 : 15;
-  const total = priceBase + priceBorder + priceFrame;
+  // Border and frame removed, so price is just base
+  const total = priceBase;
 
   return (
     <div className="container py-4">
@@ -97,10 +93,74 @@ export default function ServicesSection() {
               backgroundPosition: 'center',
               overflow: 'hidden',
               zIndex:'-999',
-              // backgroundColor: 'red'
-
             }}
           >
+            {/* Dynamic Labels */}
+            {photo && (
+              <>
+                {/* Width Label (above image) */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: `${FRAME_RECT_PCT.top - 6}%`,
+                    left: `${FRAME_RECT_PCT.left + FRAME_RECT_PCT.width / 2}%`,
+                    transform: 'translate(-50%, -100%)',
+                    background: '#22d3ee',
+                    color: 'white',
+                    padding: '4px 10px',
+                    fontSize: 'small',
+                    fontWeight: 'bold',
+                    borderRadius: '6px',
+                    zIndex: 10,
+                    pointerEvents: 'none',
+                  }}
+                >
+                  {selected.w} inches ({(selected.w * 2.54).toFixed(2)} cm)
+                </div>
+
+                {/* Height Label (left side, rotated) */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: `${FRAME_RECT_PCT.top + FRAME_RECT_PCT.height / 2}%`,
+                    left: `${FRAME_RECT_PCT.left - 4}%`,
+                    transform: 'translate(-100%, -50%) rotate(-90deg)',
+                    background: '#22d3ee',
+                    color: 'white',
+                    padding: '4px 10px',
+                    fontSize: 'small',
+                    fontWeight: 'bold',
+                    borderRadius: '6px',
+                    zIndex: 10,
+                    pointerEvents: 'none',
+                  }}
+                >
+                  {selected.h} inches ({(selected.h * 2.54).toFixed(2)} cm)
+                </div>
+
+                {/* Thickness Label (below image) */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: `${FRAME_RECT_PCT.top + FRAME_RECT_PCT.height + 2}%`,
+                    left: `${FRAME_RECT_PCT.left + FRAME_RECT_PCT.width / 2}%`,
+                    transform: 'translate(-50%, 0)',
+                    background: '#22d3ee',
+                    color: 'white',
+                    padding: '4px 10px',
+                    fontSize: 'small',
+                    fontWeight: 'bold',
+                    borderRadius: '6px',
+                    zIndex: 10,
+                    pointerEvents: 'none',
+                  }}
+                >
+                  Thickness: {thickness}
+                </div>
+              </>
+            )}
+
+            {/* Uploaded Image Container */}
             <div
               className="position-absolute"
               style={{
@@ -108,7 +168,7 @@ export default function ServicesSection() {
                 top: `${FRAME_RECT_PCT.top}%`,
                 width: `${FRAME_RECT_PCT.width}%`,
                 height: `${FRAME_RECT_PCT.height}%`,
-                transform: `scale(${scale})`,
+                transform: `scale(${scale * 0.75})`,
                 transformOrigin: 'center',
                 transition: 'transform .25s ease',
                 display: 'grid',
@@ -116,20 +176,18 @@ export default function ServicesSection() {
               }}
             >
               <div
-                className="w-100 h-100"
+                className="w-100 mt-5 h-100"
                 style={{
                   backgroundImage: photo ? `url(${photo})` : 'none',
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
-                  border: border === 'none' ? 'none'
-                        : border === 'thin' ? '3px solid #111'
-                        : '8px solid #111',
-                  boxShadow: frame === 'modern'
-                    ? '0 0 0 8px rgba(0,0,0,.85) inset'
-                    : frame === 'vintage'
-                    ? '0 0 0 10px #bfa46f inset'
-                    : '0 1px 8px rgba(0,0,0,.25)',
-                  borderRadius: 6
+                  boxShadow:
+                    thickness === '3mm'
+                      ? '0 4px 12px rgba(0,0,0,0.35)'
+                      : thickness === '5mm'
+                      ? '0 8px 20px rgba(0,0,0,0.45)'
+                      : '0 12px 28px rgba(0,0,0,0.55)',
+                  borderRadius: 12
                 }}
               />
             </div>
@@ -153,29 +211,27 @@ export default function ServicesSection() {
             </div>
           </div>
 
-          <div className="mb-3">
-            <h5 className="mb-2">Border</h5>
-            <div className="btn-group">
-              {['none','thin','thick'].map((b) => (
-                <button key={b}
-                  className={`btn btn-outline-secondary ${border===b?'active':''}`}
-                  onClick={() => setBorder(b)}
-                >
-                  {b === 'none' ? 'No Border' : b === 'thin' ? 'Thin' : 'Thick'}
-                </button>
-              ))}
-            </div>
-          </div>
-
           <div className="mb-4">
-            <h5 className="mb-2">Frame Style</h5>
+            <h5 className="mb-2">Acrylic Thickness:</h5>
             <div className="btn-group">
-              {['classic','modern','vintage'].map((f) => (
-                <button key={f}
-                  className={`btn btn-outline-dark ${frame===f?'active':''}`}
-                  onClick={() => setFrame(f)}
+              {['3mm','5mm','8mm'].map((t) => (
+                <button key={t}
+                  className={`btn btn-outline-dark ${thickness===t?'active':''}`}
+                  onClick={() => setThickness(t)}
+                  style={{
+                    border: thickness === t ? '2px solid #000' : '1px solid #ccc',
+                    background: thickness === t ? '#111' : '#fff',
+                    color: thickness === t ? '#fff' : '#111',
+                    marginRight: 8,
+                    padding: '8px 18px',
+                    borderRadius: 20,
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    outline: 'none',
+                    transition: 'all 0.2s',
+                  }}
                 >
-                  {f === 'classic' ? 'Classic Wood' : f === 'modern' ? 'Modern Black' : 'Vintage Gold'}
+                  {t}
                 </button>
               ))}
             </div>
@@ -183,11 +239,9 @@ export default function ServicesSection() {
 
           <div className="p-3 border rounded mb-3">
             <div className="d-flex justify-content-between"><span>Base</span><strong>${priceBase}</strong></div>
-            <div className="d-flex justify-content-between"><span>Border</span><strong>${priceBorder}</strong></div>
-            <div className="d-flex justify-content-between"><span>Frame</span><strong>${priceFrame}</strong></div>
             <hr className="my-2"/>
             <div className="d-flex justify-content-between fs-5">
-              <span>Total Price</span><strong>${total}</strong>
+              <span>Total Price</span><strong>${priceBase}</strong>
             </div>
           </div>
 
@@ -200,4 +254,3 @@ export default function ServicesSection() {
     </div>
   );
 }
-  
