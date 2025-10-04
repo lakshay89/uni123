@@ -165,8 +165,8 @@ export default function Navbar() {
               </li>
               |
               <li className="list-group-item me-3">
-                <Link className="AnchorLink" href="/aboutus">
-                  FAQ
+                <Link className="AnchorLink" href="/products">
+                  products
                 </Link>
               </li>
             </ul>
