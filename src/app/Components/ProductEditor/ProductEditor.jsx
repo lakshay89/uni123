@@ -3,6 +3,7 @@ import { useState, useRef } from 'react';
 import Cropper from 'react-easy-crop';
 import Draggable from 'react-draggable';
 import { Modal, Button } from 'react-bootstrap';
+import './ProductEditor.css';
 
 export default function ProductEditor({ show, onClose }) {
   const [orientation, setOrientation] = useState('vertical');
@@ -24,7 +25,7 @@ export default function ProductEditor({ show, onClose }) {
   };
 
   return (
-    <Modal show={show} onHide={onClose} size="lg">
+    <Modal show={show} onHide={onClose} size="lg" centered>
       <Modal.Header closeButton>
         <Modal.Title>Customise Product</Modal.Title>
       </Modal.Header>
@@ -68,12 +69,7 @@ export default function ProductEditor({ show, onClose }) {
 
         {/* Image area */}
         <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            paddingTop: orientation === 'vertical' ? '125%' : '70%',
-            background: '#eee',
-          }}
+          className={`crop-container ${orientation}`}
         >
           <Cropper
             image={image || (orientation === 'vertical' ? placeholderVertical : placeholderHorizontal)}
@@ -88,22 +84,15 @@ export default function ProductEditor({ show, onClose }) {
           <Draggable bounds="parent" nodeRef={dragRef}>
             <div
               ref={dragRef}
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-                color: textColor,
-                fontSize: '24px',
-                fontWeight: 'bold',
-                cursor: 'move',
-              }}
+              className="draggable-text"
+              style={{ color: textColor }}
             >
               {text}
             </div>
           </Draggable>
         </div>
 
+        {/* Zoom */}
         <div className="mt-3">
           <label>Zoom</label>
           <input

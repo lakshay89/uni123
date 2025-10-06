@@ -12,8 +12,9 @@ const LANDSCAPE = [
 ];
 const PORTRAIT = LANDSCAPE.map(s => ({ label: `${s.h}×${s.w}`, w: s.h, h: s.w }));
 
-// replace with your measured numbers:
-const FRAME_RECT_PCT = { left: 33, top: 18, width: 22, height: 33 };
+
+// Frame position and size as percentage of the container (adjust as needed for your mockup)
+const FRAME_RECT_PCT = { left: 35, top: 7, width: 22, height: 33 };
 
 function sizeScale(selected, base) {
   return Math.sqrt((selected.w * selected.h) / (base.w * base.h));
@@ -102,11 +103,12 @@ export default function ServicesSection() {
                 <div
                   style={{
                     position: 'absolute',
-                    top: `${FRAME_RECT_PCT.top - 6}%`,
-                    left: `${FRAME_RECT_PCT.left + FRAME_RECT_PCT.width / 2}%`,
+                    // top: `${FRAME_RECT_PCT.top - 7}%`, // Move higher above frame
+                    top: `40px`, // Move higher above frame
+                    left: `${FRAME_RECT_PCT.left + FRAME_RECT_PCT.width / 2}%`, // Center above frame
                     transform: 'translate(-50%, -100%)',
-                    background: '#22d3ee',
-                    color: 'white',
+                    // background: '#22d3ee',
+                    color: 'black',
                     padding: '4px 10px',
                     fontSize: 'small',
                     fontWeight: 'bold',
@@ -122,11 +124,13 @@ export default function ServicesSection() {
                 <div
                   style={{
                     position: 'absolute',
-                    top: `${FRAME_RECT_PCT.top + FRAME_RECT_PCT.height / 2}%`,
-                    left: `${FRAME_RECT_PCT.left - 4}%`,
+                    // top: `${FRAME_RECT_PCT.top + FRAME_RECT_PCT.height / 2}%`,
+                    top: `300px`,
+                    // top: ``,
+                    left: `${FRAME_RECT_PCT.left - 13}%`, // Move farther left near lamp
                     transform: 'translate(-100%, -50%) rotate(-90deg)',
-                    background: '#22d3ee',
-                    color: 'white',
+                     // background: '#22d3ee',
+                    color: 'black',
                     padding: '4px 10px',
                     fontSize: 'small',
                     fontWeight: 'bold',
@@ -142,11 +146,12 @@ export default function ServicesSection() {
                 <div
                   style={{
                     position: 'absolute',
-                    top: `${FRAME_RECT_PCT.top + FRAME_RECT_PCT.height + 2}%`,
+                    // top: `${FRAME_RECT_PCT.top + FRAME_RECT_PCT.height + 8}%`,  // Move lower below frame
+                    top: `450px`,  // Move lower below frame
                     left: `${FRAME_RECT_PCT.left + FRAME_RECT_PCT.width / 2}%`,
                     transform: 'translate(-50%, 0)',
-                    background: '#22d3ee',
-                    color: 'white',
+                    // background: '#22d3ee',
+                    color: 'black',
                     padding: '4px 10px',
                     fontSize: 'small',
                     fontWeight: 'bold',
@@ -162,8 +167,9 @@ export default function ServicesSection() {
 
             {/* Uploaded Image Container */}
             <div
-              className="position-absolute"
+              className="position-absolute  "
               style={{
+                marginTop:'100px',
                 left: `${FRAME_RECT_PCT.left}%`,
                 top: `${FRAME_RECT_PCT.top}%`,
                 width: `${FRAME_RECT_PCT.width}%`,
