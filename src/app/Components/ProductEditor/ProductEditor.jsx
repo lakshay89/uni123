@@ -1,116 +1,165 @@
-'use client';
-import { useState, useRef } from 'react';
-import Cropper from 'react-easy-crop';
-import Draggable from 'react-draggable';
-import { Modal, Button } from 'react-bootstrap';
-import './ProductEditor.css';
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import Draggable from "react-draggable";
 
 export default function ProductEditor({ show, onClose }) {
-  const [orientation, setOrientation] = useState('vertical');
-  const [image, setImage] = useState(null);
-  const [zoom, setZoom] = useState(1);
-  const [text, setText] = useState('Your Text');
-  const [textColor, setTextColor] = useState('#000000');
-  const dragRef = useRef(null);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [text, setText] = useState("Ikashay");
+  const [textColor, setTextColor] = useState("#ff0000");
+  const [orientation, setOrientation] = useState("horizontal");
+  const [isLandscape, setIsLandscape] = useState(true);
 
-  const placeholderVertical = '/placeholders/vertical.jpg';
-  const placeholderHorizontal = '/placeholders/horizontal.jpg';
+  // 🔧 New nodeRef for react-draggable
+  const nodeRef = useRef(null);
 
-  const handleFile = (e) => {
+  const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const url = URL.createObjectURL(file);
-      setImage(url);
+      setUploadedImage(url);
+
+      const img = new window.Image();
+      img.src = url;
+      img.onload = () => {
+        setIsLandscape(img.width > img.height);
+      };
     }
   };
 
+  if (!show) return null;
+
   return (
-    <Modal show={show} onHide={onClose} size="lg" centered>
-      <Modal.Header closeButton>
-        <Modal.Title>Customise Product</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {/* Orientation */}
-        <div className="mb-3">
-          <Button
-            variant={orientation === 'vertical' ? 'primary' : 'outline-primary'}
-            className="me-2"
-            onClick={() => setOrientation('vertical')}
-          >
-            Vertical
-          </Button>
-          <Button
-            variant={orientation === 'horizontal' ? 'primary' : 'outline-primary'}
-            onClick={() => setOrientation('horizontal')}
-          >
-            Horizontal
-          </Button>
-        </div>
+    <div
+      className="modal show fade d-block"
+      tabIndex="-1"
+      role="dialog"
+      style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+    >
+      <div className="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title fw-semibold">Customise Product</h5>
+            <button
+              type="button"
+              className="btn-close"
+              onClick={onClose}
+              aria-label="Close"
+            ></button>
+          </div>
 
-        {/* Upload */}
-        <div className="mb-3">
-          <input type="file" accept="image/*" onChange={handleFile} />
-        </div>
-
-        {/* Text input + color */}
-        <div className="d-flex mb-3">
-          <input
-            className="form-control me-2"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Enter text"
-          />
-          <input
-            type="color"
-            value={textColor}
-            onChange={(e) => setTextColor(e.target.value)}
-          />
-        </div>
-
-        {/* Image area */}
-        <div
-          className={`crop-container ${orientation}`}
-        >
-          <Cropper
-            image={image || (orientation === 'vertical' ? placeholderVertical : placeholderHorizontal)}
-            crop={{ x: 0, y: 0 }}
-            zoom={zoom}
-            aspect={orientation === 'vertical' ? 3 / 4 : 4 / 3}
-            onZoomChange={setZoom}
-            onCropChange={() => {}}
-            onCropComplete={() => {}}
-            showGrid={false}
-          />
-          <Draggable bounds="parent" nodeRef={dragRef}>
-            <div
-              ref={dragRef}
-              className="draggable-text"
-              style={{ color: textColor }}
-            >
-              {text}
+          <div className="modal-body">
+            {/* Orientation Buttons */}
+            <div className="mb-3">
+              <div className="btn-group" role="group">
+                <button
+                  type="button"
+                  className={`btn btn-${orientation === "vertical" ? "primary" : "outline-primary"}`}
+                  onClick={() => setOrientation("vertical")}
+                >
+                  Vertical
+                </button>
+                <button
+                  type="button"
+                  className={`btn btn-${orientation === "horizontal" ? "primary" : "outline-primary"}`}
+                  onClick={() => setOrientation("horizontal")}
+                >
+                  Horizontal
+                </button>
+              </div>
             </div>
-          </Draggable>
-        </div>
 
-        {/* Zoom */}
-        <div className="mt-3">
-          <label>Zoom</label>
-          <input
-            type="range"
-            min={1}
-            max={3}
-            step={0.1}
-            value={zoom}
-            onChange={(e) => setZoom(e.target.value)}
-          />
+            {/* File + Color picker */}
+            <div className="d-flex align-items-center gap-2 mb-3">
+              <input
+                type="file"
+                accept="image/*"
+                className="form-control"
+                onChange={handleFileChange}
+              />
+              <input
+                type="color"
+                value={textColor}
+                onChange={(e) => setTextColor(e.target.value)}
+                className="form-control form-control-color"
+              />
+            </div>
+
+            {/* Text input */}
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Enter text"
+              />
+            </div>
+
+            {/* Preview */}
+            <div
+              className="border rounded position-relative mx-auto bg-light"
+              style={{
+                width:
+                  orientation === "horizontal"
+                    ? isLandscape
+                      ? "500px"
+                      : "350px"
+                    : isLandscape
+                    ? "350px"
+                    : "300px",
+                height:
+                  orientation === "horizontal"
+                    ? isLandscape
+                      ? "300px"
+                      : "400px"
+                    : isLandscape
+                    ? "400px"
+                    : "500px",
+                overflow: "hidden",
+              }}
+            >
+              {uploadedImage ? (
+                <Image
+                  src={uploadedImage}
+                  alt="Preview"
+                  fill
+                  style={{ objectFit: "contain" }}
+                />
+              ) : (
+                <div className="w-100 h-100 d-flex justify-content-center align-items-center text-muted">
+                  Upload an image to preview
+                </div>
+              )}
+
+              {/* ✅ FIXED: Draggable Text using nodeRef */}
+              <Draggable bounds="parent" defaultPosition={{ x: 100, y: 100 }} nodeRef={nodeRef}>
+                <div
+                  ref={nodeRef}
+                  style={{
+                    position: "absolute",
+                    fontWeight: "bold",
+                    color: textColor,
+                    cursor: "move",
+                    fontSize: "22px",
+                    userSelect: "none",
+                  }}
+                >
+                  {text}
+                </div>
+              </Draggable>
+            </div>
+          </div>
+
+          <div className="modal-footer">
+            <button className="btn btn-secondary" onClick={onClose}>
+              Close
+            </button>
+            <button className="btn btn-primary">Save</button>
+          </div>
         </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={onClose}>
-          Close
-        </Button>
-        <Button variant="primary">Save</Button>
-      </Modal.Footer>
-    </Modal>
+      </div>
+    </div>
   );
 }
