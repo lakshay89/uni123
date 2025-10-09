@@ -1,18 +1,20 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
-import Draggable from "react-draggable";
+import { Rnd } from "react-rnd";
 
 export default function ProductEditor({ show, onClose }) {
   const [uploadedImage, setUploadedImage] = useState(null);
-  const [text, setText] = useState("Ikashay");
+  const [text, setText] = useState("type name");
   const [textColor, setTextColor] = useState("#ff0000");
   const [orientation, setOrientation] = useState("horizontal");
   const [isLandscape, setIsLandscape] = useState(true);
 
-  // 🔧 New nodeRef for react-draggable
-  const nodeRef = useRef(null);
+  const [imageSize, setImageSize] = useState({ width: 200, height: 200 });
+  const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+
+  const containerRef = useRef(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -24,6 +26,30 @@ export default function ProductEditor({ show, onClose }) {
       img.src = url;
       img.onload = () => {
         setIsLandscape(img.width > img.height);
+
+        // ✅ Auto-fit uploaded image to container
+        if (containerRef.current) {
+          const { offsetWidth, offsetHeight } = containerRef.current;
+          const imgRatio = img.width / img.height;
+          const boxRatio = offsetWidth / offsetHeight;
+
+          let newWidth, newHeight;
+          if (imgRatio > boxRatio) {
+            // Image is wider
+            newWidth = offsetWidth;
+            newHeight = offsetWidth / imgRatio;
+          } else {
+            // Image is taller
+            newHeight = offsetHeight;
+            newWidth = offsetHeight * imgRatio;
+          }
+
+          setImageSize({ width: newWidth, height: newHeight });
+          setImagePosition({
+            x: (offsetWidth - newWidth) / 2,
+            y: (offsetHeight - newHeight) / 2,
+          });
+        }
       };
     }
   };
@@ -41,12 +67,7 @@ export default function ProductEditor({ show, onClose }) {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title fw-semibold">Customise Product</h5>
-            <button
-              type="button"
-              className="btn-close"
-              onClick={onClose}
-              aria-label="Close"
-            ></button>
+            <button type="button" className="btn-close" onClick={onClose}></button>
           </div>
 
           <div className="modal-body">
@@ -70,7 +91,7 @@ export default function ProductEditor({ show, onClose }) {
               </div>
             </div>
 
-            {/* File + Color picker */}
+            {/* File + Color Picker */}
             <div className="d-flex align-items-center gap-2 mb-3">
               <input
                 type="file"
@@ -86,7 +107,7 @@ export default function ProductEditor({ show, onClose }) {
               />
             </div>
 
-            {/* Text input */}
+            {/* Text Input */}
             <div className="mb-3">
               <input
                 type="text"
@@ -97,8 +118,9 @@ export default function ProductEditor({ show, onClose }) {
               />
             </div>
 
-            {/* Preview */}
+            {/* Preview Canvas */}
             <div
+              ref={containerRef}
               className="border rounded position-relative mx-auto bg-light"
               style={{
                 width:
@@ -117,38 +139,73 @@ export default function ProductEditor({ show, onClose }) {
                     : isLandscape
                     ? "400px"
                     : "500px",
-                overflow: "hidden",
+                overflow: "hidden", // ✅ hides outside part
               }}
             >
-              {uploadedImage ? (
-                <Image
-                  src={uploadedImage}
-                  alt="Preview"
-                  fill
-                  style={{ objectFit: "contain" }}
-                />
-              ) : (
-                <div className="w-100 h-100 d-flex justify-content-center align-items-center text-muted">
-                  Upload an image to preview
-                </div>
+              {/* Background */}
+              <Image
+                src="/Images/wall-background.png"
+                alt="Background"
+                fill
+                style={{ objectFit: "cover", zIndex: 1 }}
+              />
+
+              {/* ✅ Uploaded Image */}
+              {uploadedImage && (
+                <Rnd
+                  size={imageSize}
+                  position={imagePosition}
+                  onDragStop={(e, d) => setImagePosition({ x: d.x, y: d.y })}
+                  onResizeStop={(e, direction, ref, delta, position) => {
+                    setImageSize({
+                      width: ref.offsetWidth,
+                      height: ref.offsetHeight,
+                    });
+                    setImagePosition(position);
+                  }}
+                  lockAspectRatio
+                  dragGrid={[1, 1]}
+                  style={{
+                    border: "1px dashed #00aaff",
+                    background: "transparent",
+                    zIndex: 10,
+                  }}
+                >
+                  <Image
+                    src={uploadedImage}
+                    alt="Uploaded"
+                    fill
+                    style={{ objectFit: "contain" }}
+                  />
+                </Rnd>
               )}
 
-              {/* ✅ FIXED: Draggable Text using nodeRef */}
-              <Draggable bounds="parent" defaultPosition={{ x: 100, y: 100 }} nodeRef={nodeRef}>
+              {/* ✅ Text Layer - Always on Top */}
+              <Rnd
+                bounds="parent"
+                default={{
+                  x: 100,
+                  y: 200,
+                  width: 150,
+                  height: 40,
+                }}
+                enableResizing={false}
+                style={{ zIndex: 20 }} // ✅ ensures text above image
+              >
                 <div
-                  ref={nodeRef}
                   style={{
-                    position: "absolute",
-                    fontWeight: "bold",
                     color: textColor,
-                    cursor: "move",
+                    fontWeight: "bold",
                     fontSize: "22px",
+                    textAlign: "center",
+                    cursor: "move",
                     userSelect: "none",
+                    textShadow: "1px 1px 2px rgba(0,0,0,0.4)", // improves visibility
                   }}
                 >
                   {text}
                 </div>
-              </Draggable>
+              </Rnd>
             </div>
           </div>
 
